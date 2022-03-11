@@ -1,0 +1,33 @@
+Debug: true
+
+Node: "https://eos.greymass.com"
+SendAccount: "bazinga.air"
+SendPrivateKey: ""
+
+HackerAccounts:
+  - hacker111111
+  - hacker222222
+  - hacker333333
+
+BPs:
+  - "starteosiobp"
+  - "eosnationftw"
+  - "newdex.bp"
+  - "blockpooleos"
+  - "eosasia11111"
+  - "eoscannonchn"
+  - "aus1genereos"
+  - "big.one"
+  - "eosflytomars"
+  - "hashfineosio"
+  - "eoseouldotio"
+  - "eosrapidprod"
+  - "atticlabeosb"
+  - "eoslaomaocom"
+  - "whaleex.com"
+  - "okcapitalbp1"
+  - "bitfinexeos1"
+  - "eosiosg11111"
+  - "eosinfstones"
+  - "zbeosbp11111"
+  - "binancestake"
