@@ -16,7 +16,6 @@ type APPConfig struct {
 	SendAccount    string
 
 	HackerAccounts []string // hacker accounts
-	BPs            []string // bp list
 }
 
 func APPConf() *APPConfig {
@@ -32,9 +31,4 @@ func APPConf() *APPConfig {
 	})
 
 	return &appConfig
-}
-
-func Refresh() {
-
-	once = sync.Once{}
 }

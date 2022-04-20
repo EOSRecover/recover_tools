@@ -13,7 +13,10 @@ import (
 	"time"
 )
 
-const AccountLimit = 100
+const (
+	AccountLimit   = 100
+	ProducersLimit = 21
+)
 
 func SendProposal() (err error) {
 
@@ -116,6 +119,10 @@ func BuildProposal(tx *eos.Transaction) (proposalAction *eos.Action, err error) 
 	}
 
 	bpsPermissions, err := BuildBPsPermission()
+	if err != nil {
+
+		return
+	}
 
 	// wrap
 	wrapPermission, err := eos.NewPermissionLevel("eosio.wrap@active")
@@ -145,7 +152,13 @@ func BuildProposal(tx *eos.Transaction) (proposalAction *eos.Action, err error) 
 
 func BuildBPsPermission() (permissions []eos.PermissionLevel, err error) {
 
-	for _, bp := range conf.APPConf().BPs {
+	bps, err := GetBPs()
+	if err != nil {
+
+		return
+	}
+
+	for _, bp := range bps {
 
 		var permission eos.PermissionLevel
 		permission, err = eos.NewPermissionLevel(bp)
@@ -169,6 +182,27 @@ func NewAccountPermission() (accountPermission []eos.PermissionLevelWeight) {
 		Permission: p,
 		Weight:     1,
 	})
+
+	return
+}
+
+func GetBPs() (bps []string, err error) {
+
+	resp, err := api.GetProducers(context.TODO())
+	if err != nil {
+
+		return
+	}
+
+	for index, p := range resp.Producers {
+
+		if index >= ProducersLimit {
+
+			break
+		}
+
+		bps = append(bps, p.Owner.String())
+	}
 
 	return
 }
