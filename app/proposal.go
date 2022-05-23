@@ -84,7 +84,7 @@ func BuildAuthTransaction() (transaction *eos.Transaction) {
 				Accounts:  newPermission,
 				Waits:     nil,
 			},
-			eos.PermissionName("owner"),
+			"active",
 		)
 
 		ownerAction := system.NewUpdateAuth(
@@ -100,8 +100,8 @@ func BuildAuthTransaction() (transaction *eos.Transaction) {
 			"owner",
 		)
 
-		actions = append(actions, ownerAction)
 		actions = append(actions, activeAction)
+		actions = append(actions, ownerAction)
 	}
 
 	transaction = eos.NewTransaction(actions, &eos.TxOptions{})
