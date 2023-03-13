@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/eoscanada/eos-go"
 	"github.com/eoscanada/eos-go/ecc"
+	"github.com/pkg/errors"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -35,8 +36,9 @@ type GMPackedTx struct {
 }
 
 type GMResponse struct {
-	Code uint32         `json:"code"`
-	Data GMResponseData `json:"data"`
+	Code    uint32         `json:"code"`
+	Message string         `json:"message"`
+	Data    GMResponseData `json:"data"`
 }
 
 type GMResponseData struct {
@@ -108,14 +110,18 @@ func (c *APIClient) RequestTxByGM(singer eos.PermissionLevel, tx *eos.Transactio
 	resp, err := c.Send(gmAPI, string(data), http.MethodPost)
 	if err != nil {
 		
-		fmt.Println("send error -> ", err)
 		return
 	}
 	
 	var respData GMResponse
 	if err = json.Unmarshal(resp, &respData); err != nil {
 		
-		fmt.Println("反序列化出错 -> ", err)
+		return
+	}
+	
+	if respData.Code != 200 {
+		
+		err = errors.New(respData.Message)
 		return
 	}
 	
