@@ -14,21 +14,22 @@ type APPConfig struct {
 	Node           string
 	SendPrivateKey string
 	SendAccount    string
-
+	GMEndPoint     string
+	
 	HackerAccounts []string // hacker accounts
 }
 
 func APPConf() *APPConfig {
-
+	
 	once.Do(func() {
-
+		
 		if err := viper.Unmarshal(&appConfig); err != nil {
-
+			
 			logger.Instance().Error("read conf error -> ", err)
 			return
 		}
-
+		
 	})
-
+	
 	return &appConfig
 }

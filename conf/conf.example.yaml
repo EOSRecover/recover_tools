@@ -3,6 +3,7 @@ Debug: true
 Node: "https://eos.greymass.com"
 SendAccount: "bazinga.air"
 SendPrivateKey: ""
+GMEndPoint: "https://eos.greymass.com"
 
 HackerAccounts:
   - hacker111111
